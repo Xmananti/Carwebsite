@@ -21,7 +21,7 @@ const SearchManufacturer = ({
         );
   return (
     <div className="search-manufacturer">
-      <Combobox>
+      <Combobox value={manufacturer} onChange={setManufacturer}>
         <div className=" relative w-full">
           <Combobox.Button className=" absolute top-[14px]">
             <Image
@@ -38,38 +38,38 @@ const SearchManufacturer = ({
             displayValue={(manufacturer: string) => manufacturer}
             onChange={(e) => setQuery(e.target.value)}
           ></Combobox.Input>
-        </div>
-        <Transition
-          as={Fragment}
-          leave=" transition ease-in duration-100"
-          leaveFrom=" opacity-100"
-          afterLeave={() => setQuery("")}
-        >
-          <Combobox.Options>
-            {filterManufacturer.length === 0 && query !== "" ? (
-              <Combobox.Option
-                value={query}
-                className="search-manufacturer__options"
-              >
-                Create "{query}"
-              </Combobox.Option>
-            ) : (
-              filterManufacturer.map((item: string) => (
+          <Transition
+            as={Fragment}
+            leave=" transition ease-in duration-100"
+            leaveFrom=""
+            afterLeave={() => setQuery("")}
+          >
+            <Combobox.Options>
+              {filterManufacturer.length === 0 && query !== "" ? (
                 <Combobox.Option
-                  key={item}
-                  value={item}
-                  className={({ active }) =>
-                    `relative search-manufacturer__options ${
-                      active ? "bg-primary-blue text-white" : "text-gray-900"
-                    }`
-                  }
+                  value={query}
+                  className="search-manufacturer__option"
                 >
-                  {item}
+                  Create "{query}"
                 </Combobox.Option>
-              ))
-            )}
-          </Combobox.Options>
-        </Transition>
+              ) : (
+                filterManufacturer.map((item: string) => (
+                  <Combobox.Option
+                    key={item}
+                    className={({ active }) =>
+                      `relative search-manufacturer__option ${
+                        active ? "bg-primary-blue text-white" : "text-gray-900"
+                      }`
+                    }
+                    value={item}
+                  >
+                    {item}
+                  </Combobox.Option>
+                ))
+              )}
+            </Combobox.Options>
+          </Transition>
+        </div>
       </Combobox>
     </div>
   );
